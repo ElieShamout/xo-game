@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <title>XO - Game</title>
+</head>
+<body>
+
+    <header>
+        <div class="parent">
+            <div class="child" onclick="playGame()"><span>play</span></div>
+            <div class="child" onclick="restartGame()"><span>restart</span></div>
+        </div>
+    </header>
+    <div class="parent-win">
+        <div class="winnerPlayer">X is winner</div>
+    </div>
+    <div class="player">
+        <div class="x-item">X</div>
+        <div class="o-item">O</div>
+    </div>
+    
+    <div class="gameBoard">
+        <div onclick="draw(0)" class="item">
+            <div class="item-X">
+                <div class="l1"><span class="leff"></span></div><div class="l2"><span class="reff"></span></div>
+            </div>            
+            <div class="item-O">
+                <div class="state-o"></div>
+            </div>
+        </div>
+        <div onclick="draw(1)" class="item">
+            <div class="item-X">
+                <div class="l1"><span class="leff"></span></div><div class="l2"><span class="reff"></span></div>
+            </div>            
+            <div class="item-O">
+                <div class="state-o"></div>
+            </div>
+        </div>
+        <div onclick="draw(2)" class="item">
+            <div class="item-X">
+                <div class="l1"><span class="leff"></span></div><div class="l2"><span class="reff"></span></div>
+            </div>            
+            <div class="item-O">
+                <div class="state-o"></div>
+            </div>
+        </div>
+        <div onclick="draw(3)" class="item">
+            <div class="item-X">
+                <div class="l1"><span class="leff"></span></div><div class="l2"><span class="reff"></span></div>
+            </div>            
+            <div class="item-O">
+                <div class="state-o"></div>
+            </div>
+        </div>
+        <div onclick="draw(4)" class="item">
+            <div class="item-X">
+                <div class="l1"><span class="leff"></span></div><div class="l2"><span class="reff"></span></div>
+            </div>            
+            <div class="item-O">
+                <div class="state-o"></div>
+            </div>
+        </div>
+        <div onclick="draw(5)" class="item">
+            <div class="item-X">
+                <div class="l1"><span class="leff"></span></div><div class="l2"><span class="reff"></span></div>
+            </div>            
+            <div class="item-O">
+                <div class="state-o"></div>
+            </div>
+        </div>
+        <div onclick="draw(6)" class="item">
+            <div class="item-X">
+                <div class="l1"><span class="leff"></span></div><div class="l2"><span class="reff"></span></div>
+            </div>
+            <div class="item-O">
+                <div class="state-o"></div>
+            </div>
+        </div>
+        <div onclick="draw(7)" class="item">
+            <div class="item-X">
+                <div class="l1"><span class="leff"></span></div><div class="l2"><span class="reff"></span></div>
+            </div>            
+            <div class="item-O">
+                <div class="state-o"></div>
+            </div>
+        </div>
+        <div onclick="draw(8)" class="item">
+            <div class="item-X">
+                <div class="l1"><span class="leff"></span></div><div class="l2"><span class="reff"></span></div>
+            </div>            
+            <div class="item-O">
+                <div class="state-o"></div>
+            </div>
+        </div>
+
+
+        <span class="line row"></span>
+        <span class="line col"></span>
+        <span class="line rad-left"></span>
+        <span class="line rad-right"></span>
+
+
+        
+    </div>
+
+
+
+
+
+
+    <script>
+        var iter_item=0;
+        function playGame(){
+            document.getElementsByClassName('gameBoard')[0].style.visibility="visible";
+            document.getElementsByClassName('gameBoard')[0].style.opacity="1";
+            var itemVisible=setInterval(function (){
+                document.getElementsByClassName('item')[iter_item].style.visibility="visible";
+                document.getElementsByClassName('item')[iter_item].style.opacity="1";
+                document.getElementsByClassName('item-O')[iter_item].style.opacity="1";
+                iter_item++;
+                if (iter_item==9){
+                    clearInterval(itemVisible);
+                }
+            },200);
+        }
+        var arrItem=[
+                     0,0,0,
+                     0,0,0,
+                     0,0,0
+                    ];
+        var player=0;
+        var item=0;
+        var stateX=0;
+        var stateO=0;
+        var Winner=0;
+        document.getElementsByClassName('x-item')[0].style.color="red";
+        function draw(i){   
+            console.log(i);
+            if (arrItem[i]==0){      
+                if (player==0){
+                    
+                    document.getElementsByClassName('x-item')[0].style.color="black";
+                    document.getElementsByClassName('o-item')[0].style.color="red";
+                    document.getElementsByClassName('item-X')[i].style.zIndex="1";
+                    document.getElementsByClassName('leff')[i].style.transform="scale(1,1)";
+                    document.getElementsByClassName('reff')[i].style.transform="scale(1,1)";
+                    player++;
+                    arrItem[i]='x';
+                    item++;
+                }
+                else{
+                    
+                    document.getElementsByClassName('o-item')[0].style.color="black";
+                    document.getElementsByClassName('x-item')[0].style.color="red";
+                    document.getElementsByClassName('item-O')[i].style.zIndex="1";
+                    player--;
+                    arrItem[i]='o';
+                    item++;
+                }
+
+
+                    if(item>=2){
+                        if (arrItem[0]=='o' && arrItem[1]=='o' && arrItem[2]=='o'){
+                            //
+                            item=0;
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            document.getElementsByClassName('o-item')[0].style.color="green";
+                            document.getElementsByClassName('row')[0].style.zIndex="2";
+                            document.getElementsByClassName('row')[0].style.transform="scale(1,1)";
+                            Winner++;
+                        }
+                        if (arrItem[3]=='o' && arrItem[4]=='o' && arrItem[5]=='o'){
+                            //
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('o-item')[0].style.color="green";
+                            document.getElementsByClassName('row')[0].style.top="225px";
+                            document.getElementsByClassName('row')[0].style.zIndex="2";
+                            document.getElementsByClassName('row')[0].style.transform="scale(1,1)";
+                            Winner++;
+                        }
+                        if (arrItem[6]=='o' && arrItem[7]=='o' && arrItem[8]=='o'){
+                            //
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('o-item')[0].style.color="green";
+                            document.getElementsByClassName('row')[0].style.top="380px";
+                            document.getElementsByClassName('row')[0].style.zIndex="2";
+                            document.getElementsByClassName('row')[0].style.transform="scale(1,1)";
+                            Winner++;
+                        }
+                        
+                        if (arrItem[0]=='o' && arrItem[3]=='o' && arrItem[6]=='o'){
+                            
+                            item=0;
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            document.getElementsByClassName('o-item')[0].style.color="green";
+                            document.getElementsByClassName('col')[0].style.zIndex="2";
+                            document.getElementsByClassName('col')[0].style.transform="scale(1,1)";
+                            Winner++;   
+                        }
+                        if (arrItem[1]=='o' && arrItem[4]=='o' && arrItem[7]=='o'){
+                            
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('o-item')[0].style.color="green";
+                            document.getElementsByClassName('col')[0].style.left="225px";
+                            document.getElementsByClassName('col')[0].style.zIndex="2";
+                            document.getElementsByClassName('col')[0].style.transform="scale(1,1)";
+                            Winner++;
+                        }
+                        if (arrItem[2]=='o' && arrItem[5]=='o' && arrItem[8]=='o'){
+                            
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('o-item')[0].style.color="green";
+                            document.getElementsByClassName('col')[0].style.left="380px";
+                            document.getElementsByClassName('col')[0].style.zIndex="2";
+                            document.getElementsByClassName('col')[0].style.transform="scale(1,1)";
+                            Winner++;
+                        }
+
+
+
+                        if (arrItem[0]=='o' && arrItem[4]=='o' && arrItem[8]=='o'){
+                            
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('o-item')[0].style.color="green";
+                            document.getElementsByClassName('rad-left')[0].style.zIndex="2";
+                            document.getElementsByClassName('rad-left')[0].style.transform="rotate(45deg) scale(1,1)";
+                            Winner++;
+                        }
+                        if (arrItem[2]=='o' && arrItem[4]=='o' && arrItem[6]=='o'){
+                            
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('o-item')[0].style.color="green";
+                            document.getElementsByClassName('rad-right')[0].style.zIndex="2";
+                            document.getElementsByClassName('rad-right')[0].style.transform="rotate(-45deg) scale(1,1)";
+                            Winner++;
+                        }
+
+                        if (arrItem[0]=='x' && arrItem[1]=='x' && arrItem[2]=='x'){                         
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('x-item')[0].style.color="green";
+                            document.getElementsByClassName('row')[0].style.zIndex="2";
+                            document.getElementsByClassName('row')[0].style.transform="scale(1,1)";
+                            Winner--;
+                        }
+                        if (arrItem[3]=='x' && arrItem[4]=='x' && arrItem[5]=='x'){
+                            
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('x-item')[0].style.color="green";
+                            document.getElementsByClassName('row')[0].style.top="225px";
+                            document.getElementsByClassName('row')[0].style.zIndex="2";
+                            document.getElementsByClassName('row')[0].style.transform="scale(1,1)";
+                            Winner--;
+                        }
+                        if (arrItem[6]=='x' && arrItem[7]=='x' && arrItem[8]=='x'){
+                            
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('x-item')[0].style.color="green";
+                            document.getElementsByClassName('row')[0].style.top="375px";
+                            document.getElementsByClassName('row')[0].style.zIndex="2";
+                            document.getElementsByClassName('row')[0].style.transform="scale(1,1)";
+                            Winner--;
+                        }
+
+                        if (arrItem[0]=='x' && arrItem[3]=='x' && arrItem[6]=='x'){
+                            
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('x-item')[0].style.color="green";
+                            document.getElementsByClassName('col')[0].style.zIndex="2";
+                            document.getElementsByClassName('col')[0].style.transform="scale(1,1)";
+                            Winner--;
+                        }
+                        if (arrItem[1]=='x' && arrItem[4]=='x' && arrItem[7]=='x'){
+                            
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('x-item')[0].style.color="green";
+                            document.getElementsByClassName('col')[0].style.left="225px";
+                            document.getElementsByClassName('col')[0].style.zIndex="2";
+                            document.getElementsByClassName('col')[0].style.transform="scale(1,1)";
+                            Winner--;
+                        }
+                        if (arrItem[2]=='x' && arrItem[5]=='x' && arrItem[8]=='x'){
+                            
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('x-item')[0].style.color="green";
+                            document.getElementsByClassName('col')[0].style.left="380px";
+                            document.getElementsByClassName('col')[0].style.zIndex="2";
+                            document.getElementsByClassName('col')[0].style.transform="scale(1,1)";
+                            Winner--;
+                        }
+
+                        if (arrItem[0]=='x' && arrItem[4]=='x' && arrItem[8]=='x'){
+                            
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('x-item')[0].style.color="green";
+                            document.getElementsByClassName('rad-left')[0].style.zIndex="2";
+                            document.getElementsByClassName('rad-left')[0].style.transform="rotate(45deg) scale(1,1)";
+                            Winner--;
+                        }
+                        if (arrItem[2]=='x' && arrItem[4]=='x' && arrItem[6]=='x'){
+                            
+                            arrItem=[0,0,0,0,0,0,0,0,0];
+                            item=0;
+                            document.getElementsByClassName('x-item')[0].style.color="green";
+                            document.getElementsByClassName('rad-right')[0].style.zIndex="2";
+                            document.getElementsByClassName('rad-right')[0].style.transform="rotate(-45deg) scale(1,1)";
+                            Winner--;
+                        }
+                        console.log("Winnre : "+Winner);
+                    if (Winner>0){
+                            document.getElementsByClassName('winnerPlayer')[0].style.visibility="visible";                             
+                            document.getElementsByClassName('winnerPlayer')[0].style.opacity="1";                             
+                            document.getElementsByClassName('parent-win')[0].style.zIndex="3";                             
+                            document.getElementsByClassName('winnerPlayer')[0].style.top="270px";   
+                            document.getElementsByClassName('winnerPlayer')[0].innerHTML="O is winner";   
+                            setTimeout(() => {
+                                restartGame();
+                            }, 5000);
+                                    
+                        }else if (Winner<0){
+                            document.getElementsByClassName('winnerPlayer')[0].style.visibility="visible";                             
+                            document.getElementsByClassName('winnerPlayer')[0].style.opacity="1";      
+                            document.getElementsByClassName('parent-win')[0].style.zIndex="3";      
+                            document.getElementsByClassName('winnerPlayer')[0].style.top="270px";   
+                            document.getElementsByClassName('winnerPlayer')[0].innerHTML="X is winner";   
+                            setTimeout(() => {
+                                restartGame();
+                            }, 5000);
+                        }
+                     }
+            }
+        }
+    
+        function restartGame(){
+            console.log("restart");
+            arrItem=[
+                     0,0,0,
+                     0,0,0,
+                     0,0,0
+                    ];
+            player=0;
+            item=0;
+            stateX=0;
+            stateO=0;
+            Winner='';
+            for (i=0;i<9;i++){
+                document.getElementsByClassName('item-X')[i].style.zIndex="1";
+                document.getElementsByClassName('leff')[i].style.transform="scale(1,0)";
+                document.getElementsByClassName('reff')[i].style.transform="scale(1,0)";
+                document.getElementsByClassName('item-O')[i].style.zIndex="-1";
+            }
+            document.getElementsByClassName('row')[0].style.transform+="scale(0,1)";
+            document.getElementsByClassName('col')[0].style.transform+="scale(1,0)";
+            document.getElementsByClassName('rad-left')[0].style.transform+="scale(0,1)";
+            document.getElementsByClassName('rad-right')[0].style.transform+="scale(0,1)";   
+            document.getElementsByClassName('winnerPlayer')[0].style.top="-250px";  
+            document.getElementsByClassName('o-item')[0].style.color="black";  
+            document.getElementsByClassName('x-item')[0].style.color="red";  
+            setTimeout(() => {
+                document.getElementsByClassName('winnerPlayer')[0].style.visibility="hidden";                             
+                document.getElementsByClassName('winnerPlayer')[0].style.opacity="0";      
+                document.getElementsByClassName('parent-win')[0].style.zIndex="-1";   
+            }, 2000);
+        }
+    </script>
+
+
+</body>
+</html>
